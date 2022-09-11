@@ -26,4 +26,4 @@ jobs:
           
       - name: Build eureka naming server container image
         working-directory: ./05-naming-server
-        run: mvn springboot:build-image -DskipTests
+        run: mvn spring-boot:build-image -DskipTests
