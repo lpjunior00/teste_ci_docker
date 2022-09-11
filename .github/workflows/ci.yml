@@ -23,7 +23,26 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-          
+      
+      # Quando é usado o plugin para gerar a image
       - name: Build eureka naming server container image
         working-directory: ./05-naming-server
         run: mvn spring-boot:build-image -DskipTests
+        
+      - name: Build api gateway container image
+        working-directory: ./05-api-gateway
+        run: mvn spring-boot:build-image -DskipTests
+     
+     # Quando é utilizado dockefile. Ai tem q gerar os jars
+      - name: Build cambio-service jar
+        working-directory: ./05-cambio-service
+        run: mvn clean package -DskipTests
+        
+      - name: Build book-service jar
+        working-directory: ./05-book-service
+        run: mvn clean package -DskipTests     
+      
+      #Roda o dockercompose para gerar toda a estrutura
+      - name: Docker-compose build
+        working-directory: .
+        run: docker-compose build    
